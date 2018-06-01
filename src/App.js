@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Zillow from 'node-zillow';
+import $ from "jquery";
 
 import Form from "./components/form";
 import Address from "./components/address";
@@ -70,19 +71,66 @@ class App extends Component {
       address.city = e.address_components.filter(function(v){return v.types.indexOf("locality") > -1})[0].long_name;
       address.state = e.address_components.filter(function(v){return v.types.indexOf("administrative_area_level_1") > -1})[0].long_name;
       address.zip = e.address_components.filter(function(v){return v.types.indexOf("postal_code") > -1})[0].long_name;
-      var zillow = new Zillow('X1-ZWz18kypre179n_6a5jo', {mode: 'no-cors'});
+      var zillow = new Zillow('X1-ZWz18kypre179n_6a5jo', {https: true});
       const parameters = {
         address: address.houseNumber + " " + address.street,
         citystatezip: address.city + ", " + address.state,
         rentzestimate: true
       }
-    
-      zillow.get('GetSearchResults', parameters)
-        .then(results => {
-            var rent = !!results.response.results.result[0].rentzestimate ? results.response.results.result[0].rentzestimate[0].amount[0]._ : parseInt(results.response.results.result[0].zestimate[0].amount[0]._, 10) * .05
-            this.addToHistory.call(this, address, rent, userEstimate)
-            return results
-        })
+      var url = "http://crossorigin.me/http://crossorigin.me/www.zillow.com/webservice/GetSearchResults.htm?zws-id=X1-ZWz18kypre179n_6a5jo&address=" + parameters.address+"&citystatezip="+parameters.citystatezip+"&rentzestimate="+parameters.rentzestimate;
+
+      fetch("http://crossorigin.me/http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=X1-ZWz18kypre179n_6a5jo&address=" + parameters.address+"&citystatezip="+parameters.citystatezip+"&rentzestimate="+parameters.rentzestimate, {
+        method: 'GET',
+        mode: 'cors', // no-cors, cors, *same-origin
+        headers:{
+          'Content-Type': 'text/xml',
+          "Origin": "*"
+        }
+      }).then(res => res.text()).then(str => $.parseXML(str)).then(resp => {
+        resp = xmlToJson(resp)
+        var rent = !!resp["SearchResults:searchresults"].response.results.result.rentzestimate ? resp["SearchResults:searchresults"].response.results.result.rentzestimate.amount["#text"] : parseInt(resp["SearchResults:searchresults"].response.results.result.zestimate.amount["#text"],10) + .05;
+        this.addToHistory.call(this, address, rent, userEstimate)
+      //       return results
+      });
+
+
+  var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+
+
+      function xmlToJson(xml) {
+        // Create the return object
+        var obj = {};
+        if (xml.nodeType == 1) { // element
+          // do attributes
+          if (xml.attributes.length > 0) {
+            obj['@attributes'] = {};
+            for (var j = 0; j < xml.attributes.length; j++) {
+              var attribute = xml.attributes.item(j);
+              obj['@attributes'][attribute.nodeName] = attribute.nodeValue;
+            }
+          }
+        } else if (xml.nodeType == 3) { // text
+          obj = xml.nodeValue;
+        }
+        // do children
+        if (xml.hasChildNodes()) {
+          for(var i = 0; i < xml.childNodes.length; i++) {
+            var item = xml.childNodes.item(i);
+            var nodeName = item.nodeName;
+            if (typeof(obj[nodeName]) == 'undefined') {
+              obj[nodeName] = xmlToJson(item);
+            } else {
+              if (typeof(obj[nodeName].push) == 'undefined') {
+                var old = obj[nodeName];
+                obj[nodeName] = [];
+                obj[nodeName].push(old);
+              }
+              obj[nodeName].push(xmlToJson(item));
+            }
+          }
+        }
+        return obj;
+      }
     }
   }
 

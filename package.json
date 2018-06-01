@@ -7,7 +7,9 @@
   },
   "dependencies": {
     "address-validator": "^0.2.2",
+    "cors-anywhere": "^0.4.1",
     "is-phone-number": "^1.0.4",
+    "jquery": "^3.3.1",
     "node-zillow": "^1.0.1",
     "nodemailer": "^4.6.5",
     "react": "^16.3.2",
