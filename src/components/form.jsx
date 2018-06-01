@@ -76,7 +76,7 @@ export default class Form extends Component {
        <input placeholder="name" id="fname" onChange={this.nameChange}></input>
        <label for="lname">Last Name</label>
        <input placeholder="lastname" id="lname" onChange={this.lastnameChange}></input>
-       {this.state.vEmail ? <label for="email">Email</label> : <label for="email">Email <span className="error">*Please Enter a Valid Email</span></label> }
+       {this.state.vEmail ? <label for="email">Email Address</label> : <label for="email">Email <span className="error">*Please Enter a Valid Email</span></label> }
        <input placeholder="email" id="email" onChange={this.emailChange}></input>
        {this.state.vPhone ? <label for="phone">Phone Number</label> : <label for="phone">Phone Number <span className="error">*Please Enter a Valid Phone Number</span></label> }
        <input placeholder="phone number" id="phone" onChange={this.phoneChange}></input>

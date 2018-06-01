@@ -52,7 +52,7 @@ class App extends Component {
     }]).slice();
     this.setState({history: newHistory, step: 3});
     this.saveData.call(this);
-    this.sendMail.call(this)
+    // this.sendMail.call(this)
   }
 
   onAddressSubmit(e, userEstimate) {
@@ -70,7 +70,7 @@ class App extends Component {
       address.city = e.address_components.filter(function(v){return v.types.indexOf("locality") > -1})[0].long_name;
       address.state = e.address_components.filter(function(v){return v.types.indexOf("administrative_area_level_1") > -1})[0].long_name;
       address.zip = e.address_components.filter(function(v){return v.types.indexOf("postal_code") > -1})[0].long_name;
-      var zillow = new Zillow('X1-ZWz18kypre179n_6a5jo');
+      var zillow = new Zillow('X1-ZWz18kypre179n_6a5jo', {mode: 'no-cors'});
       const parameters = {
         address: address.houseNumber + " " + address.street,
         citystatezip: address.city + ", " + address.state,
@@ -109,6 +109,7 @@ class App extends Component {
     fetch("https://postmail.invotes.com/send", {
       method: 'POST',
       body: JSON.stringify(email),
+      mode: 'no-cors', // no-cors, cors, *same-origin
       headers:{
         'Content-Type': 'application/json'
       }
