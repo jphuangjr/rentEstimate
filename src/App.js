@@ -53,7 +53,7 @@ class App extends Component {
     }]).slice();
     this.setState({history: newHistory, step: 3});
     this.saveData.call(this);
-    // this.sendMail.call(this)
+    this.sendMail.call(this)
   }
 
   onAddressSubmit(e, userEstimate) {
@@ -71,14 +71,11 @@ class App extends Component {
       address.city = e.address_components.filter(function(v){return v.types.indexOf("locality") > -1})[0].long_name;
       address.state = e.address_components.filter(function(v){return v.types.indexOf("administrative_area_level_1") > -1})[0].long_name;
       address.zip = e.address_components.filter(function(v){return v.types.indexOf("postal_code") > -1})[0].long_name;
-      var zillow = new Zillow('X1-ZWz18kypre179n_6a5jo', {https: true});
       const parameters = {
         address: address.houseNumber + " " + address.street,
         citystatezip: address.city + ", " + address.state,
         rentzestimate: true
       }
-      var url = "http://crossorigin.me/http://crossorigin.me/www.zillow.com/webservice/GetSearchResults.htm?zws-id=X1-ZWz18kypre179n_6a5jo&address=" + parameters.address+"&citystatezip="+parameters.citystatezip+"&rentzestimate="+parameters.rentzestimate;
-
       fetch("http://crossorigin.me/http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=X1-ZWz18kypre179n_6a5jo&address=" + parameters.address+"&citystatezip="+parameters.citystatezip+"&rentzestimate="+parameters.rentzestimate, {
         method: 'GET',
         mode: 'cors', // no-cors, cors, *same-origin
@@ -92,10 +89,6 @@ class App extends Component {
         this.addToHistory.call(this, address, rent, userEstimate)
       //       return results
       });
-
-
-  var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
-
 
       function xmlToJson(xml) {
         // Create the return object
