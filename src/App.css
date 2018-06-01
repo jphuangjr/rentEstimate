@@ -1,0 +1,151 @@
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 75px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.form {
+  display: inline-block;
+}
+
+input {
+  width: 90%;
+  margin-bottom: 10px;
+  float:left;
+}
+
+label {
+  float: left;
+  font-size: 13px;
+}
+
+.addressSubmitButton {
+  width: 90%;
+  float: left;
+}
+
+.error {
+  color: red;
+}
+
+@media(min-width:708px) {
+  .wholeSection {
+    display: flex;
+    flex-direction: column;
+  }
+  .bodySection {
+    display: flex;
+    background-color: white;
+    margin: 0 20px;
+  }
+
+  .formSection {
+    background-color: white;
+    flex: 1;
+    margin: 50px;
+    width: 100%;
+  }
+  .mapSection {
+    background-color: white;
+    flex: 1;
+    margin: 50px;
+    width: 100%;
+  }
+  .instructionsSection {
+    background-color: white;
+    flex: 1;
+    margin: 50px;
+    width: 100%;
+  }
+  .historySection {
+    background-color: white;
+    flex: 1;
+    margin: 50px;
+    width: 100%;
+  }
+  .progressSection {
+    background-color: white;
+    flex: 1;
+    margin: 50px;
+    width: 100%;
+  }
+}
+@media(max-width:708px) {
+  .wholeSection {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .bodySection {
+    margin: 0 20px;
+    display: flex;
+    flex-direction:column-reverse;
+  }
+
+  .formSection {
+    margin: 50px;
+  }
+  .mapSection {
+    margin: 50px;
+  }
+  .instructionsSection {
+    margin: 50px;
+  }
+  .historySection {
+    margin: 50px;
+  }
+  .progressSection {
+    margin: 50px;
+  }
+}
+.myBar {
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 30px;
+  color: white; 
+}
+
+.myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

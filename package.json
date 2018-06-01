@@ -1,0 +1,23 @@
+{
+  "name": "belong",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "1.1.4"
+  },
+  "dependencies": {
+    "address-validator": "^0.2.2",
+    "is-phone-number": "^1.0.4",
+    "node-zillow": "^1.0.1",
+    "nodemailer": "^4.6.5",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-google-autocomplete": "^1.0.16"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
