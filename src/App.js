@@ -7,7 +7,8 @@ import Form from "./components/form";
 import Address from "./components/address";
 import ProgressBar from "./components/progessBar";
 import History from "./components/history";
-import Tools from "./tools";
+import 'babel-polyfill';
+var ip = require('what-is-my-ip-address');
 
 class App extends Component {
 
@@ -53,7 +54,10 @@ class App extends Component {
     }]).slice();
     this.setState({history: newHistory, step: 3});
     this.saveData.call(this);
-    this.sendMail.call(this)
+    if(newHistory.length == 1) {
+      this.sendMail.call(this);
+    }
+    console.log(this.state)
   }
 
   onAddressSubmit(e, userEstimate) {
@@ -167,10 +171,9 @@ class App extends Component {
     if(window.localStorage.belongData) {
       this.setState(JSON.parse(window.localStorage.belongData));
     }
-    Tools.getUserIP(function(ip){
-      console.log(ip)
+    ip.v6().then((ip) => {
       scope.setState({ip: ip})
-    });
+    })
   }
   render() {
     return (
