@@ -27,7 +27,6 @@ export default class Form extends Component {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(text).toLowerCase());
     } else if(type === "phone") {
-      console.log(text.length)
       if(text.length === 10) {
         var text = text.split("");
         text.splice(3, 0, " ");
